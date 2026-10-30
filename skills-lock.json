@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "skills": {
+    "football-data": {
+      "source": "machina-sports/sports-skills",
+      "sourceType": "github",
+      "skillPath": "skills/football-data/SKILL.md",
+      "computedHash": "53642f6e4d2ffab21921ca909a13f89768ff0a8316107a334e3f2027595c6762"
+    },
+    "nutmeg": {
+      "source": "withqwerty/nutmeg",
+      "sourceType": "github",
+      "skillPath": "skills/nutmeg/SKILL.md",
+      "computedHash": "78b94e756f32eee5eeee155b996af6924bec7a511e11d47efe768911be60c389"
+    },
+    "nutmeg-acquire": {
+      "source": "withqwerty/nutmeg",
+      "sourceType": "github",
+      "skillPath": "skills/acquire/SKILL.md",
+      "computedHash": "3bf3f14b1be53444a5d93c7150c2502cbbe2deda821a0da05e21da7ffba932b1"
+    },
+    "nutmeg-analyse": {
+      "source": "withqwerty/nutmeg",
+      "sourceType": "github",
+      "skillPath": "skills/analyse/SKILL.md",
+      "computedHash": "983ec17a5ee8380576988fdcf991af4d7cd895b17a8d09cd994ca10175e48eae"
+    },
+    "nutmeg-brainstorm": {
+      "source": "withqwerty/nutmeg",
+      "sourceType": "github",
+      "skillPath": "skills/brainstorm/SKILL.md",
+      "computedHash": "a437eed70260c23eb028f4cc413a06cf2f4c4c0749d09d9ba6f8672caea5edbb"
+    },
+    "nutmeg-compute": {
+      "source": "withqwerty/nutmeg",
+      "sourceType": "github",
+      "skillPath": "skills/compute/SKILL.md",
+      "computedHash": "de0f9b91e7bcd9de0724cabd19758f9151c3603fae3f81ecc6e04cd021ccfb23"
+    },
+    "nutmeg-heal": {
+      "source": "withqwerty/nutmeg",
+      "sourceType": "github",
+      "skillPath": "skills/heal/SKILL.md",
+      "computedHash": "6d37205c7331e189d1f1f3b6f9f07f2bab033f3df8420aa94d8ab30bb5977a86"
+    },
+    "nutmeg-learn": {
+      "source": "withqwerty/nutmeg",
+      "sourceType": "github",
+      "skillPath": "skills/learn/SKILL.md",
+      "computedHash": "f06ec671ed638347f01b43a3add0ee7d74bf6c3d64003ea0282ae0b012615863"
+    },
+    "nutmeg-research": {
+      "source": "withqwerty/nutmeg",
+      "sourceType": "github",
+      "skillPath": "skills/research/SKILL.md",
+      "computedHash": "edf51529bd5b46f22bae4f4dc10155ed6f14ee38bb00eedc0e330eb4bd8dd139"
+    },
+    "nutmeg-review": {
+      "source": "withqwerty/nutmeg",
+      "sourceType": "github",
+      "skillPath": "skills/review/SKILL.md",
+      "computedHash": "6e6840a59a24cc480d877c661e8432d1726355bfbf61742c93952cb71ce3477c"
+    },
+    "nutmeg-store": {
+      "source": "withqwerty/nutmeg",
+      "sourceType": "github",
+      "skillPath": "skills/store/SKILL.md",
+      "computedHash": "4235ce88cd68cd410b8e39df1a50ad8f70958c7a35f5f9dde22776e9620d9de2"
+    },
+    "nutmeg-wrangle": {
+      "source": "withqwerty/nutmeg",
+      "sourceType": "github",
+      "skillPath": "skills/wrangle/SKILL.md",
+      "computedHash": "3df83de194eaf75d63ad126cc6b111e5ec1592a1cb4b78c517a3084833996626"
+    }
+  }
+}

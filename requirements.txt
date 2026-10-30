@@ -1,0 +1,7 @@
+# Install with the interpreter that runs the scripts, never with a bare `pip`:
+#   python -m pip install -r requirements.txt
+# Python 3.10+. Tested with Python 3.12, sports-skills 0.40.0, matplotlib 3.11.2, mplsoccer 1.8.1, scipy 1.18.1.
+sports-skills>=0.40
+matplotlib>=3.7
+mplsoccer>=1.4
+scipy>=1.10
