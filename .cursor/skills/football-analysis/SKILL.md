@@ -13,7 +13,8 @@ description: >-
 # 足球分析（战术 / 球员 / 比赛）
 
 总入口：先按第 1 节选工具，再按对应流程做。脚本在 `.cursor/skills/football-analysis/scripts/`，从仓库根目录运行；
-每次运行在 `outputs/<类型>-<名称>/` 写出 `report.md`（中文报告）、`summary.json`、CSV 和 PNG 图。
+每次运行在 `outputs/<类型>-<名称>/`（如 `match-spain-vs-england-3943043`、`team-argentina-fifa-world-cup-2022`）写出
+`report.md`（中文报告）、`summary.json`、CSV 和 PNG 图；准确路径见命令最后一行的 `report folder`，或 `outputs/LAST_RUN.json` 的 `out_dir`。
 
 ## 0. 运行规则（每次都适用）
 
@@ -26,6 +27,10 @@ description: >-
   （`status`、`out_dir`、`files`、`error`、`log`），再读 `<out_dir>/report.md`；也可以读 Cursor 的 terminals 文件夹里的 `*.txt`。
 - **football-data 命令**一律写成 `python -m sports_skills football <command> --参数=值`；不要用 `sports-skills` 可执行文件，
   也不要照 football-data 的 SKILL.md 运行裸 `pip install`。不要使用其中提到的付费 Machina 服务，除非用户明确要求。
+- **名称与 ID**：球队、球员、赛事名称忽略大小写和重音，可以只写一部分；有歧义时脚本列出候选，球队改写全名，球员改用 `--player-id`。
+  `sb_find`、`sb_team`、`sb_player` 的 `--competition`/`--season` 写 ID（`43`/`106`）或名称（`"FIFA World Cup"`/`2022`、`2015/2016`）都可以，
+  `sb_match` 只收数字 ID（也可省略）。常用：2022 世界杯 43/106，2018 世界杯 43/3，2024 欧洲杯 55/282，2020 欧洲杯 55/43，
+  2024 美洲杯 223/282，2023 非洲杯 1267/107，2015/16 英超 2/27；其他用 `sb_find.py competitions --q <名称>` 查，不凭记忆写 ID。
 - StatsBomb 数据首次下载后缓存在 `.cache/football-analysis/`；网络、代理、离线用法见 `references/data-sources.md` 第 4 节。
 
 ## 1. 选工具
@@ -37,11 +42,14 @@ description: >-
 | 球员在一届赛事/一个赛季的表现、同位置对比 | `sb_player.py`；加 `--benchmark` 出百分位与雷达图 |
 | 本赛季某场比赛（最近一场、指定对手） | `fd_match.py`（五大联赛有 Understat xG，其余联赛只有 ESPN 统计） |
 | 本赛季球员表现（逐场、xG/xA、射门图、队内对比） | `fd_player.py` |
-| 积分榜、赛程、交锋、Elo、赛前预测、身价、转会、伤停 | football-data skill，命令表见 `references/data-sources.md` 第 2 节 |
+| 积分榜、赛程、交锋、Elo、赛前预测、身价、转会、伤停 | football-data skill（`.agents/skills/football-data/SKILL.md`），命令表见 `references/data-sources.md` 第 2 节 |
 | 指标含义、算法、各数据商口径、跨数据源 ID | football-docs MCP：`get_metric`、`list_metrics`、`search_docs`、`resolve_entity`；配合 `references/metrics.md`，讲解用 nutmeg-learn |
 | 用户自己的数据（CSV、FBref 表、Wyscout/Opta 导出） | nutmeg-acquire、nutmeg-wrangle、nutmeg-compute、nutmeg-analyse |
 | 设计或审查图表、可视化代码 | nutmeg-brainstorm、nutmeg-review |
 | 要发布或据此做决定的分析（球探短名单、对手报告、社媒长图） | nutmeg-research（研究项目，每个数字都记录证据） |
+
+football-data 与 nutmeg 系列在 `.agents/skills/<名称>/SKILL.md`；技能列表里没有它们时（例如安装前就开始的对话）直接读这些文件。
+nutmeg 是为 Claude Code 写的，其中 `${CLAUDE_PLUGIN_ROOT}`、`mcp__football-docs__*`、hooks 等在 Cursor 里的对应做法见仓库根目录 `AGENTS.md`。
 
 StatsBomb 开放数据覆盖：2018/2022 世界杯、2020/2024 欧洲杯、2024 美洲杯、2023 非洲杯、2015/16 英超/西甲/意甲/法甲整季、
 女足世界杯与欧洲杯、WSL 等；梅西时期巴萨、2023/24 勒沃库森等只有单队比赛。详见 `references/data-sources.md` 第 1 节。
@@ -89,7 +97,7 @@ StatsBomb 开放数据覆盖：2018/2022 世界杯、2020/2024 欧洲杯、2024 
 
       python .cursor/skills/football-analysis/scripts/sb_player.py --player messi --competition 43 --season 106 --benchmark
 
-  名字有歧义时脚本会列出 `--player-id`；拼写不确定先 `sb_find.py players --competition 43 --season 106 --q messi`。
+  名字有歧义时脚本列出候选，改用 `--player-id <ID>`（代替 `--player`）重跑；拼写不确定先 `sb_find.py players --competition 43 --season 106 --q messi`。
 - 当季（`--last 5` 只看最近 5 场）：
 
       python .cursor/skills/football-analysis/scripts/fd_player.py --player saka --team arsenal --competition premier-league
@@ -114,7 +122,8 @@ StatsBomb 开放数据覆盖：2018/2022 世界杯、2020/2024 欧洲杯、2024 
 
 ## 6. 回答格式
 
-- 中文；先给 2-4 句结论，再分点列证据。数字带口径和样本，例如“PPDA 7.42（ppda.statsbomb-hudl，1 场）”。
+- 默认用中文（用户用其他语言提问时用该语言，脚本报告是中文，转述时翻译）；先给 2-4 句结论，再分点列证据。
+  数字带口径和样本，例如“PPDA 7.42（ppda.statsbomb-hudl，1 场）”。
 - 引用图时给出 `outputs/.../*.png` 路径（可用 Markdown 图片语法嵌入）。
 - 注明数据来源：StatsBomb 开放数据，或 ESPN + Understat（经 sports-skills）。用户要公开发布基于 StatsBomb 数据的图或分析时，
   提醒注明 StatsBomb 并使用其 logo（见 `references/data-sources.md` 第 1 节）。
@@ -128,7 +137,7 @@ StatsBomb 开放数据覆盖：2018/2022 世界杯、2020/2024 欧洲杯、2024 
 | `ModuleNotFoundError`，或“已安装”却找不到 | 用运行脚本的同一个解释器：`python -m pip install -r requirements.txt`；对比 `python -c "import sys;print(sys.executable)"` 与 `pip -V`；或运行 `doctor.py` |
 | 下载失败或超时 | 脚本会自动改用 jsDelivr 镜像；仍失败时设 `HTTPS_PROXY`，或让 `STATSBOMB_OPEN_DATA_DIR` 指向本地 `statsbomb/open-data/data` |
 | `get_event_xg` 为空 | Understat 赛后 24-48 小时才更新，或不是五大联赛 |
-| football-docs MCP 不可用 | 运行 `doctor.py` 看启动结果（需要 Node.js >= 22.13，见 `references/data-sources.md` 第 3 节）；仍不可用时按 `references/metrics.md` 的口径回答，并说明未经 football-docs 核对 |
+| football-docs MCP 不可用 | 运行 `doctor.py` 看启动结果（需要 Node.js >= 22.13）；本地在 Customize > MCPs 打开它，Cloud Agent 要在 cursor.com/agents 添加（`references/data-sources.md` 第 3 节）；仍不可用时按 `references/metrics.md` 的口径回答，并说明未经 football-docs 核对 |
 | 图没有生成 | 看 `outputs/LAST_RUN.json` 的 `log`；报告与数字不受影响 |
 | 命令输出丢失 | 读 `outputs/LAST_RUN.json` 与 `<out_dir>/report.md` |
 

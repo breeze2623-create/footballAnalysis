@@ -29,6 +29,14 @@ football-data 的 SKILL.md 让人运行 `pip install sports-skills` 和 `sports-
 `python -m pip install -r requirements.txt` 和 `python -m sports_skills football ...`。其中“Machina Agent Storefront”是付费服务，
 用户没有明确要求时不要使用。
 
+## Cursor Cloud specific instructions
+
+- Cloud Agent 在 Linux 上运行：用 `python3`；依赖用 `python3 -m pip install -r requirements.txt` 安装，或交给脚本自动补装。
+- 技能列表在 agent 启动时生成。列表里没有 football-analysis、football-data、nutmeg* 时，直接读对应的 SKILL.md
+  （`.cursor/skills/football-analysis/`、`.agents/skills/<名称>/`）。
+- football-docs MCP 只有在 cursor.com/agents 的 MCP 设置里添加后才可用（`.cursor/mcp.json` 只给本地 Cursor 用）；没有时按
+  `.cursor/skills/football-analysis/references/metrics.md` 的口径回答，并说明未经 football-docs 核对。
+
 ## nutmeg skills 在 Cursor 中的用法
 
 nutmeg 是为 Claude Code 写的插件。在 Cursor 里按下表理解它的说明：

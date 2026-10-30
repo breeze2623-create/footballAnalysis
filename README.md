@@ -17,7 +17,8 @@ Cursor 会按 `.cursor/skills/football-analysis/SKILL.md` 选数据源、运行�
 
 ## 怎么用
 
-在 Cursor 的对话框里直接提问，例如：
+打开仓库（或拉取更新）后**新开一个对话**：Cursor 在对话开始时读取技能列表，之前开的对话看不到新装的 skills。
+在对话框里直接提问即可；想明确指定时输入 `/football-analysis` 再提问。例如：
 
 | 类型 | 示例提问 | 背后运行 |
 |---|---|---|
@@ -53,7 +54,7 @@ Cursor 会按 `.cursor/skills/football-analysis/SKILL.md` 选数据源、运行�
 
    不装也可以：脚本发现缺包时会用当前解释器自动补装。
 2. Node.js 22.13 或更新（football-docs MCP 需要）。
-3. 用 Cursor 打开仓库，在 Settings > MCP 里启用 `football-docs`（或重启 Cursor）。
+3. 用 Cursor 打开仓库，在 Customize > MCPs 里打开 `football-docs`（较早的版本在 Settings > MCP），首次连接时批准。
 4. 自检：
 
        python .cursor/skills/football-analysis/scripts/doctor.py
@@ -61,8 +62,15 @@ Cursor 会按 `.cursor/skills/football-analysis/SKILL.md` 选数据源、运行�
 
    `doctor.py` 会指出 `python`、`pip` 是否属于同一个解释器，并按 `.cursor/mcp.json` 实际启动一次 MCP；结果在 `outputs/doctor.md`。
 
-Cloud Agent 使用在 cursor.com/agents 的 MCP 下拉菜单里配置的服务器：添加 stdio 服务器，命令 `npx`，参数 `-y football-docs@0.17.4`。
-脚本本身不依赖 MCP。
+Customize > Skills 里 `football-data` 可能带警告图标：它上游的 description 有 1395 个字符，超过 Agent Skills 规范的 1024。
+这里保留上游原样；总入口按文件路径引用它，不依赖自动匹配。
+
+## 在 Cloud Agent 里运行（GitHub 仓库）
+
+- Cloud Agent 自动加载仓库里的 `.cursor/skills/`、`.agents/skills/` 和 `AGENTS.md`；新提交的 skill 只对之后启动的 agent 生效。
+- Python 依赖不用预装：脚本缺包时用当前解释器自动补装。
+- football-docs MCP：Cloud Agent 只用在 cursor.com/agents 的 MCP 下拉菜单里配置的服务器。添加 stdio 服务器，命令 `npx`，
+  参数 `-y football-docs@0.17.4`。脚本本身不依赖 MCP。
 
 ## 目录
 

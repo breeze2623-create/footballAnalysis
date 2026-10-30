@@ -41,7 +41,10 @@
 1990（1 场）；Copa del Rey、Liga Profesional、La Liga 1973/74、Serie A 1986/87、FIFA U20 World Cup 1979、
 North American League 1977 各 1 场。
 
-先用 `python sb_find.py competitions` / `matches` 确认有哪些比赛，不要凭印象给 ID。
+上表和下面的常用 ID 已按 2026-10-30 的 `competitions.json` 核对。表外的赛事、比赛先查，不要凭印象给 ID：
+
+    python .cursor/skills/football-analysis/scripts/sb_find.py competitions --q "uefa euro"
+    python .cursor/skills/football-analysis/scripts/sb_find.py matches --competition "UEFA Euro" --season 2024 --team spain
 
 常用 ID：2022 世界杯 43/106（决赛 3869685，阿根廷 3-3 法国，点球 4-2）；2024 欧洲杯 55/282（决赛 3943043，
 西班牙 2-1 英格兰）；2024 美洲杯 223/282；2023 非洲杯 1267/107。
@@ -83,9 +86,10 @@ Understat、ESPN、Transfermarkt 的数据只用于个人分析；仓库不保�
 `.cursor/mcp.json` 通过 `node .cursor/mcp/football-docs.mjs` 启动 `football-docs@0.17.4`（需 Node.js >= 22.13）。
 常用工具：`get_metric`（指标卡：定义、变体、测试值）、`list_metrics`、`search_docs`（各数据商的 ID、坐标、字段）、
 `compare_providers`、`resolve_entity`（跨数据源的球员/球队 ID）、`search_papers` 等，共 17 个。
-本地 Cursor 读取 `.cursor/mcp.json`，改动后需在 Settings > MCP 里启用或重启 Cursor。Cloud Agent 使用在
-cursor.com/agents 的 MCP 下拉菜单里为团队配置的服务器（Cursor 文档 Cloud Agents 一节）；要在云端使用，在那里添加
-stdio 服务器：命令 `npx`，参数 `-y football-docs@0.17.4`。MCP 不可用时脚本照常运行，口径以本目录的 `metrics.md` 为准。
+本地 Cursor 读取 `.cursor/mcp.json`（`${workspaceFolder}` 由 Cursor 替换成仓库根目录），在 Customize > MCPs 里打开
+football-docs 的开关（较早的版本在 Settings > MCP），首次连接需要批准。Cloud Agent 只用在 cursor.com/agents 的 MCP 下拉菜单
+（或团队的 Dashboard > Plugins & MCPs）里配置的服务器；要在云端使用，在那里添加 stdio 服务器：命令 `npx`，参数
+`-y football-docs@0.17.4`。MCP 不可用时脚本照常运行，口径以本目录的 `metrics.md` 为准。
 
 ## 4. 环境变量
 
