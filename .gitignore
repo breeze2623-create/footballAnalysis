@@ -1,0 +1,14 @@
+# Reports and downloaded data (StatsBomb, Understat, ESPN); the scripts rebuild them.
+outputs/
+.cache/
+
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Personal nutmeg profile
+.nutmeg.user.md
+
+.DS_Store
+Thumbs.db

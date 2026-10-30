@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "football-docs": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["${workspaceFolder}/.cursor/mcp/football-docs.mjs"]
+    }
+  }
+}
