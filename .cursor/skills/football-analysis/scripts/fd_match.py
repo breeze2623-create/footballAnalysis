@@ -3,6 +3,7 @@
     python fd_match.py --team arsenal --competition premier-league            # latest finished match
     python fd_match.py --team arsenal --competition premier-league --vs everton
     python fd_match.py --team "real madrid" --competition la-liga --nth 2      # second most recent
+    python fd_match.py --team "real madrid" --competition champions-league   # cups: ESPN stats only
     python fd_match.py --event-id 401878768
 
 Writes outputs/fd-match-<home>-vs-<away>-<id>/ with report.md (Chinese), summary.json, players.csv
@@ -78,8 +79,14 @@ def find_team(fb, query: str, competition: str | None) -> tuple[dict, str | None
 
 
 def finished_events(fb, team_id: str, competition: str | None) -> list[dict]:
-    """The team's finished matches in the current season of ``competition``, oldest first."""
-    sched = call(fb.get_team_schedule, team_id=team_id, **({"competition_id": competition} if competition else {}))
+    """The team's finished matches in the current season of ``competition``, oldest first.
+
+    ``league_slug`` is passed too: with ``competition_id`` alone, sports-skills stops at the first league
+    that returns a schedule for the team (its domestic league) and filters that, so cups such as
+    champions-league come back empty.
+    """
+    kw = {"competition_id": competition, "league_slug": competition} if competition else {}
+    sched = call(fb.get_team_schedule, team_id=team_id, **kw)
     events = [e for e in sched.get("events") or [] if e.get("status") == "closed"]
     return sorted(events, key=lambda e: e.get("start_time") or "")
 

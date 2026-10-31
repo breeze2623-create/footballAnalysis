@@ -65,6 +65,9 @@ StatsBomb 开放数据覆盖：2018/2022 世界杯、2020/2024 欧洲杯、2024 
 
        python .cursor/skills/football-analysis/scripts/fd_match.py --team arsenal --competition premier-league
 
+   欧冠、欧联等杯赛同样可用（`--competition champions-league`），但只有 ESPN 统计，没有 Understat xG。
+   `--vs` 找不到时，先用 football-data 的 `get_season_schedule` 确认两队本季在该赛事是否交手，不要换个赛事当作同一场。
+
 2. 生成报告（StatsBomb）：
 
        python .cursor/skills/football-analysis/scripts/sb_match.py --match 3869685 --competition 43 --season 106
